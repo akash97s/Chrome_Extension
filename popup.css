@@ -1,0 +1,29 @@
+
+#mainDiv {
+    height: 500px;
+    width: 700px;
+
+}
+
+b {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+  
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+#text {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+  

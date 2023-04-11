@@ -1,0 +1,55 @@
+// injection script
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request === "getAllText") {
+        var allText = document.body.innerText
+        // console.log("content ", allText)
+        sendResponse({ allText: allText })
+    }
+})
+  
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log("highlight text ", request)
+    if (request.action === "highlightAllText") {
+        let matches = request.matchedWords
+        if (matches.length > 0) {
+
+            // targetString = "h1b"
+            // const allElements = document.getElementsByTagName('body')
+            // const body = document.querySelector("body")
+            // const childNodes = body.childNodes
+            // const mainTextTags = []
+            // for (let i = 0; i < childNodes.length; i++) {
+            //     const childNode = childNodes[i]
+            //     if (childNode.nodeType === Node.ELEMENT_NODE) {
+            //         const tagName = childNode.tagName.toLowerCase()
+            //         if (tagName !== "script" && tagName !== "link" && tagName !== "style") {
+            //             if (childNode.innerText) {
+            //                 mainTextTags.push(childNode.tagName)
+            //             }
+            //         }
+            //     }
+            // }
+
+            // for (let i = 0; i < allElements.length; i++) {
+            //   const element = allElements[i]
+            //   const innerHTML = element.innerHTML
+            //   const index = innerHTML.indexOf(targetString)
+            //   if (index !== -1) {
+            //     const newHTML = innerHTML.slice(0, index) + '<span style="background-color: yellow;">' +
+            //       innerHTML.slice(index, index + targetString.length) + '</span>' + innerHTML.slice(index + targetString.length)
+                
+            //     element.innerHTML = newHTML
+            //   }
+            // }
+
+            sendResponse({ message: "Highlighted all occurrences " }) 
+        }
+        else
+        sendResponse({ message: "No occurrences" })
+    }
+
+    sendResponse({ message: "Invalid action" })
+
+})
