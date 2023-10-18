@@ -3,10 +3,17 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request === "getAllText") {
         var allText = document.body.innerText
-        // console.log("content ", allText)
+        console.log("content ")
         sendResponse({ allText: allText })
     }
 })
+
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//     if (request === "sendEmailBG") {
+//         console.log("sendEmailBG ")
+//         sendResponse({ result: "success" })
+//     }
+// })
 
 // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //     console.log("highlight text ", request)
@@ -22,6 +29,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // })
 
 
+// ! Not working
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // sendResponse({ message: "Downloaded all images", images: [] })
     if (request === "getAllImages") {

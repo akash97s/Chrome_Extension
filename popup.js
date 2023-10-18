@@ -1,6 +1,5 @@
 // Background script/ main logic
 
-
 // Get specific text matches of current tab
 function getSpecificText() {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
@@ -13,7 +12,7 @@ function getSpecificText() {
             let searchWords = [
                 "h1b", "H1B", "H1b", "H1-B", "h1-b", "H1-b", "sponsorship", "sponsor", "cannot sponsor", 
                 "no sponsorship", "unable to sponsor", "not able to sponsor", "polygraph", 
-                "ts/sci", "clearance", "security clearance", "Security Clearance", "USC/GC", "US citiizen", "US citizenship",
+                "ts/sci", "poly", "clearance", "Clearance", "security clearance", "Security Clearance", "USC/GC", "US citizen", "US citizenship",
                 "We are unable to sponsor H1B visas at this time", "Candidates requiring sponsorship for H1B visas will not be considered",
                 "We do not sponsor work visas including H1B, E3, or TN visas", "Candidates must be authorized to work in the United States without sponsorship",
                 "We are unable to consider candidates who require visa sponsorship, including H1B", "Unfortunately, we are not able to sponsor H1B visas for this position",
@@ -35,12 +34,12 @@ function getSpecificText() {
             for(let i = 0; i< searchWords.length; ++i) {
                 let currentWord = searchWords[i]
                 let searchRegex = new RegExp(currentWord, "gi")
-                let match = response.allText.match(searchRegex)
+                let match = response?.allText.match(searchRegex)
                 if(match != null)   
                     matches.push(match)
             }
 
-            console.log("Matched : ",matches)
+            // console.log("Matched : ", matches)
 
             if (matches.length == 0) {
                 document.getElementById("text").innerText = "No words found on this page."
@@ -59,23 +58,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Get all the text of current tab
 function printAllText() {
+    console.log("printAllText ")
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {  
         chrome.tabs.sendMessage(tabs[0].id, "getAllText", function (response) {
             if(response == undefined) {
                 alert("Try reloading the page or closing and reopeing the extension")
             }
-            document.getElementById("text2").innerText = response.allText
+            document.getElementById("text2").innerText = response?.allText
             // console.log(response)
         })
     })
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("print ")
     var printButton = document.getElementById("print-btn2")
     printButton.addEventListener("click", printAllText)
 })
-  
 
+
+function sendEmail() {
+    const emailAddress = document.getElementById('emailInput').value
+    console.log("Email content ", emailAddress)
+    const emailContent = document.getElementById("text2").innerText
+    var templateParams = {
+        to_email: emailAddress,
+        from_name: 'Akash',
+        message: emailContent
+    }
+    emailjs.send('service_6qlnc5s', 'template_8n1x2yf', templateParams)
+        .then(function(response) {
+           console.log('SUCCESS!', response.status, response.text)
+           document.getElementById("email-status-text").innerText = "Email sent successfully !!!"
+        }, function(error) {
+           console.log('FAILED...', error)
+           document.getElementById("email-status-text").innerText = "Error: email not sent !!!"
+    })
+}
+
+
+// Send text to an email
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Email 3.1")
+    emailjs.init("0LiICfdS1DZDaOawo")
+    const emailButton = document.getElementById('sendEmail-btn')
+    emailButton.addEventListener("click", function() { sendEmail() })
+})
+
+
+
+
+// ! Not working 
 // Get all the images of current tab
 function getImages() {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {  
@@ -83,7 +116,7 @@ function getImages() {
             if(response == undefined) {
                 alert("Try reloading the page or closing and reopeing the extension")
             }
-            console.log("Images ", response)
+            // console.log("Images ", response)
             // Download
             // response.images.forEach(async img => {
             //     await chrome.downloads.download({
@@ -110,7 +143,7 @@ function getAllVideos() {
             // if(response == undefined) {
             //     alert("Try reloading the page or closing and reopeing the extension")
             // }
-            console.log("Vidoes ", response)
+            // console.log("Vidoes ", response)
             // Download
             // response.images.forEach(async img => {
             //     await chrome.downloads.download({

@@ -1,9 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Print All Text",
-    "version": "1.0",
+    "version": "3.5",
     "description": "A Chrome extension that prints all the text from the current webpage",
-    "host_permissions": [],
     "action": {
       "default_popup": "popup.html"
     },
@@ -15,8 +14,16 @@
     ],
     "permissions": [
       "activeTab",
-      "downloads"
+      "downloads",
+      "tabs",
+      "storage"
     ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'",
+      "sandbox": "sandbox allow-scripts; script-src 'self' 'unsafe-eval'; object-src 'self'",
+      "default-src": " 'self' *.bootstrapcdn.com",
+      "connect-src": "api.emailjs.com"
+    },    
     "icons": {
       "128": "Extsension_Logo.png",
       "48": "Extsension_Logo.png",

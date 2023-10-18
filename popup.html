@@ -1,12 +1,18 @@
-<!DOCTYPE html>
 <html>
-<head>
+<meta>
   <title>Print All Text</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
+  <script src="email.min.js"></script>
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.bootstrapcdn.com"></meta> -->
+  <!-- <script type="text/javascript">
+    (function() {
+       emailjs.init("tD1Dd5ozzMEL6ByP9")
+    }) ()
+  </script> -->
   <script src="popup.js"></script>
 </head>
 <body>
-    <!-- <script src="popup.js"></script> -->
     <div id="mainDiv">
         <b> Chrome extensions to find specific words in a current/ active page </b>
         <br/>
@@ -18,10 +24,17 @@
         <br/>
         <div id="text4"></div>
         <br/>
+        <div id="email-result-text"></div>
+        <br/>
         <button id="print-btn"> Find </button>
         <button id="print-btn2"> Print </button>
         <button id="print-btn3"> Download Images </button>
         <button id="print-btn4"> Download Videos </button>
+        <br/><br/>
+        <input type="text" id="emailInput" placeholder="Recipient's Email">
+        <button id="sendEmail-btn">Send Email</button>
+        <div id="email-status-text"></div>
+        <br/>
     </div>
 </body>
 </html>
